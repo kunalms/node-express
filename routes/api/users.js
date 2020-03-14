@@ -40,8 +40,6 @@ router.put('/user', auth.required, function(req, res, next){
 });
 
 router.post('/users/login', function(req, res, next){
-  console.log(req.body);
-  console.log(req.body.user);
   if(!req.body.user.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
   }
@@ -55,7 +53,7 @@ router.post('/users/login', function(req, res, next){
 
     if(user){
       user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
+      return res.json(user.toAuthJSON());
     } else {
       return res.status(422).json(info);
     }
@@ -69,8 +67,17 @@ router.post('/users', function(req, res, next){
   user.email = req.body.user.email;
   user.setPassword(req.body.user.password);
 
-  user.save().then(function(){
+  user.save().then(function () {
     return res.json({user: user.toAuthJSON()});
+  }).catch(next);
+});
+
+router.get('/users', auth.required, function (req, res, next) {
+  User.find(req.payload.id).then(function (users) {
+    if (!users) {
+      return res.sendStatus(401);
+    }
+    return res.json(users);
   }).catch(next);
 });
 
