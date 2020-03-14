@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./app.js",
-    "build-frontend": "cd frontend && npm run build-prod && cd ..",
-    "deploy": "npm run build-frontend && eb deploy"
+    "build-frontend-prod": "cd frontend && npm run build-prod && cd ..",
+    "build-frontend-dev": "cd frontend && npm run build-dev && cd ..",
+    "deploy": "npm run build-frontend-prod && eb deploy"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
