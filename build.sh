@@ -18,14 +18,9 @@ function readJson {
 
 cd frontend
 npm run build-prod
-git add -A
-VERSION=`readJson package.json version` || exit 1;
-git commit -m "created build - $VERSION"
-
-npm version $1
 cd ..
-npm version $1
 git add -A
 VERSION=`readJson package.json version` || exit 1;
-git commit -m "created build version - $VERSION"
+git commit -m "created $1 build - app version_$VERSION"
 
+npm version $1
