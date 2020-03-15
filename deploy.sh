@@ -32,6 +32,9 @@ git push origin
 # deploy the changes to aws
 eb deploy
 
+# turn of gpgsign.
+git config commit.gpgsign false
+
 # increment the version
 npm version $1
 VERSION=$(readJson package.json version) || exit 1
@@ -39,4 +42,3 @@ echo "creating new build $VERSION"
 git add . -A
 git commit -m "created new version_$VERSION"
 git push origin
-
