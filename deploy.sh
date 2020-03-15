@@ -33,9 +33,6 @@ git push origin
 eb deploy
 
 # increment the version
-cd frontend
-npm version $1
-cd ..
 npm version $1
 VERSION=$(readJson package.json version) || exit 1
 echo "creating new build $VERSION"
