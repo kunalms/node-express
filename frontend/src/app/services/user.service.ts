@@ -7,17 +7,21 @@ import {User} from "../models/user";
 })
 export class UserService {
 
-  private readonly allUsersURL = '/api/users';
-  private readonly currUserInfoUrl = '/api/user';
+  private readonly userBaseUrl = '/api/users';
+  private readonly userInfUrl = '/api/user';
 
   constructor(private http: HttpClient) {
   }
 
   getAll() {
-    return this.http.get<User[]>(this.allUsersURL);
+    return this.http.get<User[]>(this.userBaseUrl);
   }
 
   getUserInfo() {
-    return this.http.get<User>(this.currUserInfoUrl);
+    return this.http.get<User>(this.userInfUrl);
+  }
+
+  createUser(user: User) {
+    return this.http.post<User>(this.userBaseUrl, user);
   }
 }
