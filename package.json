@@ -1,15 +1,14 @@
 {
   "name": "node-express",
-  "version": "1.0.4",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./app.js",
     "build-frontend-prod": "cd frontend && npm run build-prod && cd ..",
     "build-frontend-dev": "cd frontend && npm run build-dev && cd ..",
-    "build:patch": "sh build.sh patch",
-    "build:minor": "sh build.sh minor",
-    "build:major": "sh build.sh major",
-    "deploy": "eb deploy"
+    "deploy:patch": "sh deploy.sh patch",
+    "deploy:minor": "sh deploy.sh minor",
+    "deploy:major": "sh deploy.sh major"
   },
   "dependencies": {
     "aws-sdk": "^2.639.0",

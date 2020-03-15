@@ -16,13 +16,30 @@ function readJson() {
   fi
 }
 
+# do a build for frontend
 cd frontend
-#npm run build-prod
+npm run build-prod
 cd .. || exit 1
+# get the current version
 VERSION=$(readJson package.json version) || exit 1
+
+# commit evrything under current build version and push to origin.
 echo "committing latest changes in $1 build $VERSION"
 git add . -A
-git commit -m "created $1 build - app version_ $VERSION"
+git commit -m "created $1 build - app version_$VERSION"
 git push origin
 
+# deploy the changes to aws
+eb deploy
+
+# increment the version
+cd frontend
 npm version $1
+cd ..
+npm version $1
+VERSION=$(readJson package.json version) || exit 1
+echo "creating new build $VERSION"
+git add . -A
+git commit -m "created new version_$VERSION"
+git push origin
+
